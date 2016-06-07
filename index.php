@@ -13,12 +13,22 @@
    <header>
     <div class="hero">
       <div id="head">
-       <img id="logo" src="./imgs/logo.svg" alt="">
+      <img id="logo" src="./imgs/logo.svg"  href="index.php" alt="">
+<!--      ナビゲーション　　-->
+    <nav>
+     <ul>
+         <li><a class="kanri" id="point-btn" >ポイント</a></li>
+         <li><a class="kanri" id="ranking-btn" >ランキング</a></li>
+         <li><a class="kanri" href="">管理ページ</a></li>
+     </ul>
+     </nav>
+<!--      ナビゲーション　　-->     
+      
       </div>
        <div id="hero_msg">
        <p id="main_msg1">有名エンジニアがあなたのすぐそばに・・・</p>
-       <p id="main_msg2">~最適な学習方法をお届け~</p>
-       <div id="main-btn" href="">今すぐ始める</div>
+       <p id="main_msg2">〜最適な学習方法をお届け〜</p>
+       <div id="main-btn" ><a href="#ranking">今すぐ始める</a></div>
         </div>
         
     </div>
@@ -26,7 +36,7 @@
    
    
    <div class="container">
-      <div class="three_point">
+      <div id="three_point">
            <p id="three_point_msg">３つのポイント</p>
            <div class="row">
                <div class="point col-md-4">
@@ -47,7 +57,7 @@
    
    
 <!--            ランキング　           　-->
-   <div class="ranking">
+   <div id="ranking">
     <img class="rank1" src="./imgs/first.png" alt="">
     <img class="rank2" src="./imgs/second.png" alt="">
     <img class="rank3"  src="./imgs/third.png" alt="">
