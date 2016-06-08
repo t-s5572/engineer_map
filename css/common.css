@@ -17,6 +17,7 @@
     background-color: #FF6A15;
     color:white;
     transition: 0.8s;
+    text-decoration: none;
 }
 #logo{
     position: absolute;

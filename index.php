@@ -9,6 +9,36 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="js/top.js"></script>
 </head>
+
+<?php 
+include("func.php");
+    
+$pdo = db_con();
+//２．データ登録SQL作成
+$stmt = $pdo->prepare("SELECT author_table.id as author_id ,author_table.author_name,author_table.author_message, content_table.content_title,content_table.content_message FROM author_table 
+  INNER JOIN content_table ON author_table.id = content_table.author_id LIMIT 3;");
+$status = $stmt->execute();
+//３データ表示
+$view="";
+if($status==false){
+  //execute（SQL実行時にエラーがある場合）
+  $error = $stmt->errorInfo();
+  exit("ErrorQuery:".$error[2]);
+}else{
+  //Selectデータの数だけ自動でループしてくれる
+  while( $result = $stmt->fetch(PDO::FETCH_ASSOC) ){
+    //管理FLGで表示を切り分けたりしてみましょう！！！（追加してください！）
+    $view .= 
+        '<div class="author">
+        <img class="author_img" src="author_image.php?id='.$result["author_id"].'" alt="">
+       <p class="author_title">'.$result["content_title"].'</p><p>'.$result["author_name"]
+        .'</p><p class="author_msg">'.$result["content_message"].'</p>
+       </div>';
+  }
+
+}    
+?>
+
 <body>
    <header>
     <div class="hero">
@@ -26,9 +56,9 @@
       
       </div>
        <div id="hero_msg">
-       <p id="main_msg1">有名エンジニアがあなたのすぐそばに・・・</p>
-       <p id="main_msg2">〜最適な学習方法をお届け〜</p>
-       <div id="main-btn" ><a href="#ranking">今すぐ始める</a></div>
+       <p id="main_msg1">ENMAP</p>
+       <p id="main_msg2">有名エンジニアがあなたのすぐそばに・・・<br>〜最適な学習方法をお届け〜</p>
+       <a id="main-btn" href="main.php?id=1">今すぐ始める</a>
         </div>
         
     </div>
@@ -63,21 +93,7 @@
     <img class="rank3"  src="./imgs/third.png" alt="">
       <p id="ranking_msg">ランキング</p>
 <!--          作者情報を三回くりかえす　　　　　　-->
-       <div class="author">
-           <img class="author_img" src="./imgs/yamazaki.jpg" alt="">
-           <p class="author_title">山崎大助</p>
-           <p class="author_msg">数々のIT系メディアに登場し、アジアで唯一（世界10人中の1名）のMicrosoft MVP（Bing Maps Development）に3年連続選ばれた業界最前線で活躍するクリエイター。デジタルハリウッド大学院准教授。Bing関連だけでなくHTML5やWeb関連技術の普及に尽力しつつ、IT系メディアでの寄稿、書籍の執筆・連載でも人気。</p>
-       </div>
-       <div class="author">
-           <img class="author_img" src="./imgs/efusin.png" alt="">
-           <p class="author_title">藤川真一 （えふしん）</p>
-           <p class="author_msg">FA装置メーカー、Web制作のベンチャーを経て、2006年にGMOペパボへ。ショッピングモールサービスにプロデューサーとして携わるかたわら、2007年からモバイル端末向けのTwitterウェブサービス型クライアント『モバツイ』の開発・運営を個人で開始。2010年マインドスコープを設立し、2012年4月30日まで代表取締役社長を務める。その後、想創社（version2）を設立しiPhoneアプリ『ShopCard.me』を開発。2014年8月からBASE（ベイス）株式会社の取締役CTOに就任</p>
-       </div>
-       <div class="author">
-           <img class="author_img" src="./imgs/kasugai.png" alt="">
-           <p class="author_title">春日井 良隆</p>
-           <p class="author_msg">岐阜大学を卒業後、大沢商会を経て、1997 年にアドビ システムズに入社。2007 年にマイクロソフト初のデザインツールであるExpression のプロダクトマネージャーとして、マイクロソフトに入社。その後、Silverlight のプロダクトマネージャーを兼務し、両製品のマーケティングを統括する。2009 年にエバンジェリズム部門に異動。HTML5やInternet Explorer、UXの啓蒙を進める一方で、近年では学生向けのプログラミングやビジネスプランニング、マーケティング教育にも取り組んでいる。</p>
-       </div>
+       <?=$view ?>
    </div>
                 <!--   フッター　　-->
     <p id="pageTop"><a href="#">page top</a></p>

@@ -3,3 +3,30 @@
     height:200px;
     border-radius: 100px;
 }
+
+.step{
+    width:100px;
+    height:100px;
+    border-radius: 50px;
+    line-height: 95px;
+    margin: 40px auto;
+    background-color: white;
+    font-size: 50px;
+    font-weight:bold;
+    position: relative;
+        border: 3px solid gray;
+}
+
+/*
+.step:after{
+    content: "";
+    height: 40px;
+    border: 10px solid white;
+    position: absolute;
+    top: 90px;
+    left: 40px;
+}
+*/
+.author{
+        border: 3px solid gray;
+}
