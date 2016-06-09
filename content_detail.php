@@ -30,7 +30,8 @@ if( $_SESSION["kanri_flg"]==1 ) {
 $pdo = db_con();
 
 //２．データ登録SQL作成
-$stmt = $pdo->prepare("SELECT * FROM author_table");
+$stmt = $pdo->prepare("SELECT content_table.content_title,content_table.content_message,step_table.id as step_id,step_table.step_title, step_table.step_message FROM content_table 
+  INNER JOIN step_table ON content_table.id = step_table.content_id");
 $status = $stmt->execute();
 
 
@@ -45,7 +46,12 @@ if($status==false){
   //Selectデータの数だけ自動でループしてくれる
   while( $result = $stmt->fetch(PDO::FETCH_ASSOC) ){
     //管理FLGで表示を切り分けたりしてみましょう！！！（追加してください！）
-    $view .= '<p><a href="author_detail.php?id='.$result["id"].'">'.$result["author_name"]." : ".$result["author_message"].'</a></p><img src="author_image.php?id='.$result["id"].'">';
+    $view .= '<div class="step">'.$result["step_id"].'</div>
+        <div class="author">
+        <img class="author_img" src="step_image.php?id='.$result["step_id"].'" alt="">
+       <p class="author_title">'.$result["step_title"].'</p>
+       <p class="author_msg">'.$result["step_message"].'</p>
+       </div>';
   }
 
 }
@@ -59,9 +65,8 @@ if($status==false){
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>まとめ作家一覧</title>
+<title>ステップ詳細</title>
 <link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="css/admin.css">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <style>div{padding: 10px;font-size:16px;}</style>
 </head>
@@ -87,7 +92,7 @@ if($status==false){
 <!-- Head[End] -->
 
 <!-- Main[Start] -->
-<div id="center">
+<div>
     <div class="container jumbotron"><?=$view?></div>
     
   </div>

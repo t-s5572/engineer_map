@@ -14,15 +14,19 @@
 
 <?php 
 include("func.php");
+
+$id =$_GET["id"];
     
 $pdo = db_con();
 //２．データ登録SQL作成
 $stmt = $pdo->prepare("SELECT content_table.content_title,content_table.content_message,step_table.id as step_id,step_table.step_title, step_table.step_message FROM content_table 
-  INNER JOIN step_table ON content_table.id = step_table.content_id ;");
+  INNER JOIN step_table ON content_table.id = step_table.content_id where step_table.content_id = :id ;");
+$stmt->bindValue(":id",$id,PDO::PARAM_STR);
 $status = $stmt->execute();
 
 $stmt2 = $pdo->prepare("SELECT author_table.id as author_id ,author_table.author_name,author_table.author_message, content_table.content_title,content_table.content_message FROM author_table 
-  INNER JOIN content_table ON author_table.id = content_table.author_id LIMIT 1;");
+  INNER JOIN content_table ON author_table.id = content_table.author_id where content_table.id = :id;");
+$stmt2->bindValue(":id",$id,PDO::PARAM_STR);
 $status2 = $stmt2->execute();    
 //３データ表示
 $view="";
@@ -41,7 +45,7 @@ if($status==false){
         '<div class="step">'.$result["step_id"].'</div>
         <div class="author">
         <img class="author_img" src="step_image.php?id='.$result["step_id"].'" alt="">
-       <p class="author_title">'.$result["step_title"].'</p>
+       <p class="author_title"><a href="https://www.amazon.co.jp/PHP%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E6%95%99%E7%A7%91%E6%9B%B8-%E8%A5%BF%E6%B2%A2-%E7%9B%B4%E6%9C%A8/dp/4797369140?ie=UTF8&*Version*=1&*entries*=0">'.$result["step_title"].'</a></p>
        <p class="author_msg">'.$result["step_message"].'</p>
        </div>';
   }
@@ -70,20 +74,20 @@ if($status2==false){
     <header>
         <div class="hero">
             <div id="head">
-                <img id="logo" src="./imgs/logo.svg" href="index.php" alt="">
+                <img id="logo" src="./imgs/logo.svg"  alt="">
                 <!--      ナビゲーション　　-->
                 <nav>
                     <ul>
                         <li><a class="kanri" id="point-btn">ポイント</a></li>
                         <li><a class="kanri" id="ranking-btn">ランキング</a></li>
-                        <li><a class="kanri" href="">管理ページ</a></li>
+                        <li><a class="kanri" href="logout.php">ログアウト</a></li>
                     </ul>
                 </nav>
                 <!--      ナビゲーション　　-->
 
             </div>
             <div id="hero_msg">
-                <p id="main_msg1"><?=$content_title?></p>
+                <p id="main_msg3"><?=$content_title?></p>
                 <?=$author_image ?>
                 <p id="main_msg2"><?=$author_name?></p>
             </div>

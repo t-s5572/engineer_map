@@ -61,6 +61,57 @@ body{
     width:200px;
 }
 
+/*ログイン画面*/
+.form-container{
+    width:500px;
+    height:400px;
+    margin:50px auto;
+    border-radius: 5px;
+    border: 5px solid #00B2B1;
+    background-color: white;
+    padding: 50px;
+}
+
+
+
+.form-contain{
+    width:400px;
+    height:100px;
+}
+
+#login{
+    width:100%;
+    height: 50px;
+}
+.login-text{
+    font-size: 20px;
+    width: 100%;
+}
+
+body{
+    background-color: #f5f6fa !important;
+}
+
+#login-message{
+    text-align: center;
+    font-size:80px;
+    margin:50px 0;
+}
+#entry_btn{
+    width: 80% !important;
+    margin: 30px auto;
+    background-color: #00B2B1 !important;
+    border-color: #00B2B1 !important;
+}
+
+#entry_btn:hover{
+    opacity: 0.7
+}
+
+#center{
+    text-align: center;
+}
+
 
 
 

@@ -4,10 +4,10 @@ include("html_start.php");
 ?>
 
     <!-- login_act.php は認証処理用のPHPです。 -->
-    <p id="login-message">ログイン画面</h1>
+    <p id="login-message">新規登録</h1>
     <div class="form-container">
        
-        <form name="form1" action="login_act.php" method="post">
+        <form name="form1" action="new_act.php" method="post">
            <div class="form-contain">
                 <label class="login-text">ログインID:
                     <br>
@@ -20,7 +20,7 @@ include("html_start.php");
                 <input id="login" type="password" name="lpw" />
             </label>
             </div>
-            <input id="entry_btn" class="btn btn-primary btn-block btn-lg" type="submit" value="LOGIN" />
+            <input id="entry_btn" class="btn btn-primary btn-block btn-lg" type="submit" value="新規登録" />
             
         </form>
     </div>

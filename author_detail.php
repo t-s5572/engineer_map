@@ -21,9 +21,30 @@ $status = $stmt->execute();
     $name = $result["author_name"];
     $message = $result["author_message"];
     $indate = $result["indate"];
-    $image = $result["author_image"];
   }
 
+
+?>
+<?php
+//1.GETでidを取得
+$content_id = $_GET["id"];
+
+
+//2.DB接続など
+$pdo2 = db_con();
+
+//3.SELECT * FROM gs_an_table WHERE id=***; を取得
+$stmt2 = $pdo2->prepare("SELECT * FROM content_table WHERE author_id= :id");
+$stmt2-> bindValue(":id", $id, PDO::PARAM_INT);
+$status2 = $stmt2->execute();
+
+$view = "";
+
+
+//4.select.phpと同じようにデータを取得（以下はイチ例）
+ while( $result = $stmt2->fetch(PDO::FETCH_ASSOC)){
+    $view .= '<p><a href="content_detail.php?id='.$result["id"].'">'.$result["content_title"]." : ".$result["content_message"].'</a></p>';
+}
 
 ?>
 <?php
@@ -67,6 +88,11 @@ include("html_start.php");
     <input type="hidden" name="id" value="<?=$id?>">
     <input type="submit" value="削除">
 </form>
+
+<!--コンテンツ一覧-->
+
+<?=$view?>
+
 
 
 <?php
